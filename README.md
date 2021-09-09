@@ -9,3 +9,8 @@ A python script to produce metrics on CNV calls from a VEP annotated VCF file. T
 SpliceAI Filter
 ------
 A python script to filter the [SpliceAI](https://github.com/Illumina/SpliceAI) VCF file for genome build 38. Includes bash script for submitting this as a job on a SLURM scheduler. 
+
+
+Coverage
+------
+A python script to take the output from [CoverageCalculatorPy](https://github.com/AWGL/CoverageCalculatorPy) when split at exon level and produce average for each gene. 
