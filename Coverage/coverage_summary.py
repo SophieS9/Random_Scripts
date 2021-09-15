@@ -8,7 +8,7 @@ from collections import defaultdict
 
 COV = open(sys.argv[1],"r")
 
-#Make dictionary containing all genes and their average coverage value
+#Make dictionary containing all genes and their average coverage value (use column index 4) or PCT20 (use column ndex5)
 genes = defaultdict(list)
 
 for entry in COV:
