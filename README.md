@@ -13,4 +13,9 @@ A python script to filter the [SpliceAI](https://github.com/Illumina/SpliceAI) V
 
 Coverage
 ------
-A python script to take the output from [CoverageCalculatorPy](https://github.com/AWGL/CoverageCalculatorPy) when split at exon level and produce average for each gene. 
+A python script to take the output from [CoverageCalculatorPy](https://github.com/AWGL/CoverageCalculatorPy) when split at exon level and produce average for each gene.
+
+
+JSON Convert
+------
+A python script to take a JSON file supplied by GOSH containing variant information and convert this to a csv file format containing just the key information on variant location, ref/alt allele, type and subtype.  
