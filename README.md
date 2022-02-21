@@ -19,3 +19,8 @@ A python script to take the output from [CoverageCalculatorPy](https://github.co
 JSON Convert
 ------
 A python script to take a JSON file supplied by GOSH containing variant information and convert this to a csv file format containing just the key information on variant location, ref/alt allele, type and subtype.  
+
+
+PanelApp API Query
+-----
+A python script to query the PanelApp API for genes and to then parse the information to retrieve information on panels where the genes are reviewed as green. 
