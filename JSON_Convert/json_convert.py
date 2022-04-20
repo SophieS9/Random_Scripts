@@ -1,5 +1,5 @@
 #script to convert json variant file from GOSH to readable format
-#usage: json_convert.py 
+#usage: json_convert.py <JSON input file> 
 
 import json
 import os
