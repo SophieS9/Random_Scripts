@@ -24,3 +24,8 @@ A python script to take a JSON file supplied by GOSH containing variant informat
 PanelApp API Query
 -----
 A python script to query the PanelApp API for genes and to then parse the information to retrieve information on panels where the genes are reviewed as green. 
+
+
+Decipher Scrape
+-----
+A python script to get all patient and research variant for a given gene from decipher. Has it's own conda environment yml with necessary packages. 
