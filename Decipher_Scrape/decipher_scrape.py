@@ -45,10 +45,11 @@ def get_research_variants(gene):
 	#Empty list to store variants
 	research_variants=[]
 
-	#Get URL for research variants for gene
+	#Get URL for research variants for gene - had to use selenium to run the js to get all info
 	chrome_options = Options()
 	chrome_options.add_argument("--no-sandbox")
 	chrome_options.add_experimental_option("detach", True)
+	chrome_options.add_argument("--headless")
 
 	webdriver_service = Service("./chromedriver") #Your chromedriver path
 	driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
@@ -56,14 +57,59 @@ def get_research_variants(gene):
 	driver.get(url)
 	driver.maximize_window()
 	time.sleep(5)
-	#accept cookie
-	driver.find_element(By.XPATH,'//*[@id="onetrust-button-group-parent"]/div/button[1]').click()
-	time.sleep(2)
 
-	#Uae beautiful soup to parse the html
-	soup = BeautifulSoup(driver.page_source, "lxml")
+	#Use beautiful soup to parse the html
+	soup = BeautifulSoup(driver.page_source, "html.parser")
 	
-	print(soup.prettify())
+	#Markers to use to bring the variant information together as they're in sequential tags in the html
+	got_chr = False
+	got_pos = False
+	got_ref = False
+	got_alt = False
+
+	#The information we want is within span tags, specifically those with classes
+	for tag in soup.find_all('span'):
+	
+		#If it has a class label
+		if tag.has_attr('class'):
+				
+			#Chromosome
+			if 'chr' in tag['class']:
+				chrm = tag.contents[0]
+				got_chr = True
+				
+			#Position
+			if 'start' in tag['class']:
+				position = tag.contents[0]
+				got_pos = True
+				
+			#Ref - this might be a list if multiple bases, so need to loop
+			if 'allele-ref' in tag['class']:
+				ref = ''
+				for base in tag.contents:
+					#Only take the bases
+					if 'allele-replace' not in base['class']:
+						ref += base.contents[0]
+				got_ref = True
+				
+			#Alt - as above, might be a list
+			if 'allele-alt' in tag['class']:
+				alt = ''
+				for base in tag.contents:
+					alt += base.contents[0]
+				got_alt = True
+			
+			#Put together into a variant when all elements got, then reset
+			if got_chr and got_pos and got_ref and got_alt:
+				
+				var = chrm+":"+position+ref+">"+alt
+				
+				got_chr = False
+				got_pos = False
+				got_ref = False
+				got_alt = False
+				
+				research_variants.append(var)
 
 	return(research_variants)
 
@@ -85,3 +131,8 @@ patient_variants = get_patient_variants(args.gene)
 #Get research variants
 research_variants = get_research_variants(args.gene)
 
+#Print out
+with open(args.out,'w') as out:
+	for var in research_variants:
+		out.write(var+"\n")
+		
