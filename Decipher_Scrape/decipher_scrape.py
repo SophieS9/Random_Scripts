@@ -36,6 +36,15 @@ def get_patient_variants(gene):
 	driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
 	url = "https://www.deciphergenomics.org/gene/"+gene+"/patient-overlap/snvs"
 	driver.get(url)
+	time.sleep(5)
+	
+	#Select All for Patients (otherwise you just get 10) - this needs to be a try/except as option only available when there are patient variants
+	try:
+		show_all_button = driver.find_element('xpath', '//*[@id="content"]/div/div/div/div/div/div/div/div/div/div/div/div/div/div[4]/div/div/div/div[1]/div/label/select/option[4]')
+		show_all_button.click()
+	except:
+		pass
+	
 	driver.maximize_window()
 	time.sleep(5)
 
@@ -50,7 +59,7 @@ def get_patient_variants(gene):
 
 	#Get all the patient identifiers and will then link out to their variant pages
 	patient_ids = []
-	
+		
 	for tag in soup.find_all('td'):
 		
 		#Get patient ID from link - this is all sub tags called div which have a lcass matching btn-group-xs
