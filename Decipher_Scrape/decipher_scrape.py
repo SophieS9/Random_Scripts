@@ -107,8 +107,8 @@ def get_patient_variants(gene):
 				#Position
 				if 'start' in tag['class']:
 					position = tag.contents[0]
-					#Only change if position is between start and stop
-					if position >= check_start and position <= check_end:
+					#Only change if position is between start and stop, and if chr is set to true (so we don't see this if the position is in the range but on the wrong chr)
+					if position >= check_start and position <= check_end and got_chr == True:
 						got_pos = True
 				
 				#Ref - this might be a list if multiple bases, so need to loop
