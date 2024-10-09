@@ -29,3 +29,8 @@ A python script to query the PanelApp API for genes and to then parse the inform
 Decipher Scrape
 -----
 A python script to get all patient and research variant for a given gene from decipher. Has it's own conda environment yml with necessary packages. 
+
+
+PUL Prediction
+-----
+A python script to take an output from dbCAN and use this to predict PULs based on 15 genes up and downstream of a key class of GHs. 
